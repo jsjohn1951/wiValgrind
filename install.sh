@@ -66,14 +66,14 @@ if [ "$(printf $?)" = "1" ]; then
 
 	ls ~/wiValgrind $2 > /dev/null
 
-	if [ "$(printf $?)" = "0" ]; then
+	if [ "$(printf $?)" = "1" ]; then
 		git -C ~/ clone https://github.com/jsjohn1951/wiValgrind.git
 	else
 		git -C ~/wiValgrind pull
 	fi
 
 	echo "Aliasing valgrind inside .zshrc"
-	echo 'alias wistart="~/wiValgrind/start"' >> ~/.zshrc
+	echo 'alias wistart="~/wiValgrind/start.sh"' >> ~/.zshrc
 
 	path=$PWD
 
@@ -82,6 +82,20 @@ if [ "$(printf $?)" = "1" ]; then
 	docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
 
 	cd $path
+	source ~/.zshrc
+
+	tput setaf 2
+	echo
+	echo "Good news, your image is built!"
+	tput init
+	echo "Nothing to do in install."
+
+	echo
+	printf "Run '"
+	tput setaf 2
+	printf "wistart"
+	tput init
+	printf "' within working directory!"
 
 else
 	tput setaf 2
