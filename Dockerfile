@@ -12,6 +12,7 @@ RUN apt-get install \
 	git \
 	make \
 	g++ \
+	gcc \
 	dialog \
 	zsh \
 	valgrind \
@@ -38,5 +39,8 @@ RUN apt-get install \
 	weechat-perl \
 	irssi \
 	-y --no-install-recommends
+
+RUN echo 'alias cc="gcc"' >> ~/.zshrc
+RUN echo 'alias c++="g++"' >> ~/.zshrc
 
 ENV DEBIAN_FRONTEND=dialog

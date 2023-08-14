@@ -19,6 +19,8 @@ tput setaf 2; printf "\____   )MMMMMM|   .'                \n"
 tput setaf 2; printf "      -'        --' hjm              \n\n"
 tput init
 
+echo
+
 printf "Is docker installed? ("
 tput setaf 2
 printf " y"
