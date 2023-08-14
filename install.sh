@@ -39,17 +39,49 @@ if [ "$dockInst" = "n" ];
 	exit 1
 fi
 
+printf "Is git installed? ("
+tput setaf 2
+printf "y"
+tput init
+printf "/"
+tput setaf 1
+printf "n"
+tput init
+printf ") "
+read gitInst
+
+if [ "$gitInst" = "n" ];
+	then
+	echo
+	tput setaf 1
+	echo "Tough luck 💀 install git first"
+	tput init
+	exit 1
+fi
+
 docker images | grep wivalgrind $2 > /dev/null
 
 if [ "$(printf $?)" = "1" ]; then
 	echo "Cloning wiValgrind in root."
-	git -C ~/ clone https://github.com/jsjohn1951/wiValgrind.git
 
-	# echo "Aliasing valgrind inside .zshrc"
-	# echo 'alias valgrind="~/wiValgrind/start"' >> .zshrc
+	ls ~/wiValgrind $2 > /dev/null
 
-	# docker compose -f ~/Desktop/wiValgrind/docker-compose.yml up -d --build
-	# docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
+	if [ "$(printf $?)" = "0" ]; then
+		git -C ~/ clone https://github.com/jsjohn1951/wiValgrind.git
+	else
+		git -C ~/wiValgrind pull
+	fi
+
+	echo "Aliasing valgrind inside .zshrc"
+	echo 'alias wistart="~/wiValgrind/start"' >> ~/.zshrc
+
+	path=$PWD
+
+	cd ~/wiValgrind
+	docker compose -f ~/Desktop/wiValgrind/docker-compose.yml up -d --build
+	docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
+
+	cd $path
 
 else
 	tput setaf 2
