@@ -42,16 +42,17 @@ fi
 docker images | grep wivalgrind $2 > /dev/null
 
 if [ "$(printf $?)" = "1" ]; then
-	docker compose -f ~/Desktop/wiValgrind/docker-compose.yml up -d --build
-	docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
+	echo "Cloning wiValgrind in root."
 
-	echo "Creating wiValgrind directory in root."
 	mkdir ~/wiValgrind
+	git -C ~/wiValgrind clone https://github.com/jsjohn1951/wiValgrind.git
 
-	cp *
+	# echo "Aliasing valgrind inside .zshrc"
+	# echo 'alias valgrind="~/wiValgrind/start"' >> .zshrc
 
-	echo "Aliasing valgrind inside .zshrc"
-	echo 'alias valgrind="~/wiValgrind/start"' >> .zshrc
+	# docker compose -f ~/Desktop/wiValgrind/docker-compose.yml up -d --build
+	# docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
+
 else
 	tput setaf 2
 	echo
