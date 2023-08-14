@@ -115,7 +115,7 @@ if [ "$(printf $?)" = "1" ]; then
 	path=$PWD
 
 	cd ~/wiValgrind
-	docker compose -f ~/Desktop/wiValgrind/docker-compose.yml up -d --build
+	docker compose -f ~/wiValgrind/docker-compose.yml up -d --build
 	docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
 
 	cd $path

@@ -10,6 +10,8 @@ RUN apt-get install \
 	vim \
 	curl \
 	git \
+	make \
+	g++ \
 	dialog \
 	zsh \
 	valgrind \
