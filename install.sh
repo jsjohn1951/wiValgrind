@@ -43,9 +43,7 @@ docker images | grep wivalgrind $2 > /dev/null
 
 if [ "$(printf $?)" = "1" ]; then
 	echo "Cloning wiValgrind in root."
-
-	mkdir ~/wiValgrind
-	git -C ~/wiValgrind clone https://github.com/jsjohn1951/wiValgrind.git
+	git -C ~ clone https://github.com/jsjohn1951/wiValgrind.git
 
 	# echo "Aliasing valgrind inside .zshrc"
 	# echo 'alias valgrind="~/wiValgrind/start"' >> .zshrc
