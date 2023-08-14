@@ -15,6 +15,8 @@ RUN apt-get install \
 	valgrind \
 	dirmngr \
 	gpg-agent \
+	gnupg \
+	gnupg2 \
 	apt-transport-https \
 	net-tools \
 	ca-certificates \
