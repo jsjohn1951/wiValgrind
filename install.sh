@@ -59,6 +59,26 @@ if [ "$gitInst" = "n" ];
 	exit 1
 fi
 
+printf "Are you using zsh? ("
+tput setaf 2
+printf "y"
+tput init
+printf "/"
+tput setaf 1
+printf "n"
+tput init
+printf ") "
+read zshInst
+
+if [ "$gitInst" = "n" ];
+	then
+	echo
+	tput setaf 1
+	echo "Tough luck 💀 install git first"
+	tput init
+	exit 1
+fi
+
 docker images | grep wivalgrind $2 > /dev/null
 
 if [ "$(printf $?)" = "1" ]; then
@@ -72,8 +92,25 @@ if [ "$(printf $?)" = "1" ]; then
 		git -C ~/wiValgrind pull
 	fi
 
-	echo "Aliasing valgrind inside .zshrc"
-	echo 'alias wistart="~/wiValgrind/start.sh"' >> ~/.zshrc
+	tput setaf 1
+	if [ "$zshInst" = "y" ]; then
+		echo "Aliasing wistart inside .zshrc"
+
+		cat ~/.zshrc | grep wistart $2 > /dev/null
+		if [ "$(printf $?)" = "1" ]; then
+			echo 'alias wistart="~/wiValgrind/start.sh"' >> ~/.zshrc
+		fi
+
+	else
+		echo "Aliasing wistart inside .bashrc"
+
+		cat ~/.bashrc | grep wistart $2 > /dev/null
+		if [ "$(printf $?)" = "1" ]; then
+			echo 'alias wistart="~/wiValgrind/start.sh"' >> ~/.bashrc
+		fi
+
+	fi
+	tput init
 
 	path=$PWD
 
@@ -82,7 +119,6 @@ if [ "$(printf $?)" = "1" ]; then
 	docker rm $(printf $(docker ps -a | grep wivalgrind)) $2 > /dev/null
 
 	cd $path
-	source ~/.zshrc
 
 	tput setaf 2
 	echo
