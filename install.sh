@@ -21,11 +21,11 @@ tput init
 
 printf "Is docker installed? ("
 tput setaf 2
-printf "y"
+printf " y"
 tput init
 printf "/"
 tput setaf 1
-printf "n"
+printf "n "
 tput init
 printf ") "
 read dockInst
@@ -41,11 +41,11 @@ fi
 
 printf "Is git installed? ("
 tput setaf 2
-printf "y"
+printf " y"
 tput init
 printf "/"
 tput setaf 1
-printf "n"
+printf "n "
 tput init
 printf ") "
 read gitInst
@@ -61,11 +61,11 @@ fi
 
 printf "Are you using zsh? ("
 tput setaf 2
-printf "y"
+printf " y"
 tput init
 printf "/"
 tput setaf 1
-printf "n"
+printf "n "
 tput init
 printf ") "
 read zshInst
@@ -127,11 +127,12 @@ if [ "$(printf $?)" = "1" ]; then
 	echo "Nothing to do in install."
 
 	echo
+	echo "Open a new terminal to test"
 	printf "Run '"
 	tput setaf 2
 	printf "wistart"
 	tput init
-	printf "' within working directory!"
+	printf "' within working directory!\n"
 
 else
 	tput setaf 2
