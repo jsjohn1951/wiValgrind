@@ -59,7 +59,7 @@ if [ "$fortyTwoLab" == "y" ] || [ "$fortyTwoLab" == "Y" ];
 	if [ "$(docker ps)" ];
 		then
 		tput setaf 1
-        echo "Docker is running. Let's kill it first ;)"
+        echo "Docker is running. Let's kill it first 🔫"
         test -z "$(docker ps -q 2>/dev/null)" && osascript -e 'quit app "Docker"'
         sleep 1
     fi
@@ -70,10 +70,31 @@ if [ "$fortyTwoLab" == "y" ] || [ "$fortyTwoLab" == "Y" ];
 	echo "Docker directory setup complete :)"
 	sleep 1
 	tput setaf 2
-	echo "Let's proceed with installation"
+	echo "Let's proceed with installation 🤓"
 	sleep 1
 	tput init
 fi
+
+docker ps > /dev/null 2>&1
+if [ $? -eq 1 ];
+	then
+	open -a Docker
+	echo "starting docker now 😎"
+fi
+
+tput setaf 1
+echo "waiting for docker 🥱"
+while true;
+	do
+	docker ps > /dev/null 2>&1
+	if [ $? -eq 0 ];
+		then
+		break
+	fi
+done
+tput setaf 2
+echo "docker running 😇"
+tput init
 
 printf "Is git installed? ("
 tput setaf 2
@@ -90,7 +111,7 @@ if [ "$gitInst" = "n" ] || [ "$gitInst" = "N" ];
 	then
 	echo
 	tput setaf 1
-	echo "Tough luck 💀 install git first"
+	echo "Tough luck 💀 install git first 😱"
 	tput init
 	exit 1
 fi
@@ -149,12 +170,12 @@ if [ "$(printf $?)" = "1" ]; then
 
 	tput setaf 2
 	echo
-	echo "Good news, your image is built!"
+	echo "Good news, your image is built! 🥳"
 	tput init
 	echo "Nothing to do in install."
 
 	echo
-	echo "Open a new terminal to test"
+	echo "Open a new terminal 🤖 to test "
 	printf "Run '"
 	tput setaf 2
 	printf "dev"
