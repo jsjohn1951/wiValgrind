@@ -21,6 +21,17 @@ tput init
 
 echo
 
+printf "Installing on a 42 lab machine? ("
+tput setaf 2
+printf " y"
+tput init
+printf "/"
+tput setaf 1
+printf "n "
+tput init
+printf ") "
+read fortyTwoLab
+
 printf "Is docker installed? ("
 tput setaf 2
 printf " y"
@@ -32,13 +43,36 @@ tput init
 printf ") "
 read dockInst
 
-if [ "$dockInst" = "n" ];
+if [ "$dockInst" = "n" ] || [ "$dockInst" = "N" ];
 	then
 	echo
 	tput setaf 1
 	echo "Tough luck 💀 install docker first"
 	tput init
 	exit 1
+fi
+
+
+if [ "$fortyTwoLab" == "y" ] || [ "$fortyTwoLab" == "Y" ];
+	then
+	echo
+	if [ "$(docker ps)" ];
+		then
+		tput setaf 1
+        echo "Docker is running. Let's kill it first ;)"
+        test -z "$(docker ps -q 2>/dev/null)" && osascript -e 'quit app "Docker"'
+        sleep 1
+    fi
+	rm -rf ~/goinfre/docker
+	mkdir -p ~/goinfre/com.docker.docker
+	rm -rf ~/Library/Containers/com.docker.docker
+	ln -s ~/goinfre/com.docker.docker ~/Library/Containers/com.docker.docker
+	echo "Docker directory setup complete :)"
+	sleep 1
+	tput setaf 2
+	echo "Let's proceed with installation"
+	sleep 1
+	tput init
 fi
 
 printf "Is git installed? ("
@@ -52,7 +86,7 @@ tput init
 printf ") "
 read gitInst
 
-if [ "$gitInst" = "n" ];
+if [ "$gitInst" = "n" ] || [ "$gitInst" = "N" ];
 	then
 	echo
 	tput setaf 1
@@ -72,15 +106,6 @@ tput init
 printf ") "
 read zshInst
 
-if [ "$gitInst" = "n" ];
-	then
-	echo
-	tput setaf 1
-	echo "Tough luck 💀 install git first"
-	tput init
-	exit 1
-fi
-
 docker images | grep wivalgrind $2 > /dev/null
 
 if [ "$(printf $?)" = "1" ]; then
@@ -95,20 +120,20 @@ if [ "$(printf $?)" = "1" ]; then
 	fi
 
 	tput setaf 1
-	if [ "$zshInst" = "y" ]; then
-		echo "Aliasing wistart inside .zshrc"
+	if [ "$zshInst" = "y" ] || [ "$zshInst" = "Y" ]; then
+		echo "Aliasing dev inside .zshrc"
 
-		cat ~/.zshrc | grep wistart $2 > /dev/null
+		cat ~/.zshrc | grep dev $2 > /dev/null
 		if [ "$(printf $?)" = "1" ]; then
-			echo 'alias wistart="~/wiValgrind/start.sh"' >> ~/.zshrc
+			echo 'alias dev="~/wiValgrind/start.sh"' >> ~/.zshrc
 		fi
 
 	else
-		echo "Aliasing wistart inside .bashrc"
+		echo "Aliasing dev inside .bashrc"
 
-		cat ~/.bashrc | grep wistart $2 > /dev/null
+		cat ~/.bashrc | grep dev $2 > /dev/null
 		if [ "$(printf $?)" = "1" ]; then
-			echo 'alias wistart="~/wiValgrind/start.sh"' >> ~/.bashrc
+			echo 'alias dev="~/wiValgrind/start.sh"' >> ~/.bashrc
 		fi
 
 	fi
@@ -132,7 +157,7 @@ if [ "$(printf $?)" = "1" ]; then
 	echo "Open a new terminal to test"
 	printf "Run '"
 	tput setaf 2
-	printf "wistart"
+	printf "dev"
 	tput init
 	printf "' within working directory!\n"
 

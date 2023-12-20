@@ -1,6 +1,6 @@
 # wiValgrind Container setup
 
-A container designed to provide a flexible Linux environment for development. Simply execute the start.sh script in the working directory using the ```wistart``` alias after installation.
+A container designed to provide a flexible Linux environment for development. Simply execute the start.sh script in the working directory using the ```dev``` alias after installation.
 
 ### Components:
 1) Dockerfile - provides blueprint for the image to be built.
