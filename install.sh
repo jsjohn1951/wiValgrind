@@ -82,8 +82,8 @@ if [ $? -eq 1 ];
 	echo "starting docker now 😎"
 fi
 
-tput setaf 1
 echo "waiting for docker 🥱"
+tput setaf 1
 while true;
 	do
 	docker ps > /dev/null 2>&1
@@ -91,6 +91,8 @@ while true;
 		then
 		break
 	fi
+	printf " ."
+	sleep 1
 done
 tput setaf 2
 echo "docker running 😇"
