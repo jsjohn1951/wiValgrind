@@ -54,9 +54,6 @@ A --> C([Contains all the necessary tools])
 Ensure that the following are installed before attempting to install and build the container:
 1) docker
 2) git
-A nice to have would be:
-3) zsh
-but works fine without
 ---
 ### install:
 Run the following command to install on your system:
