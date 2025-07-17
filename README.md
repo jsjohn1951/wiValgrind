@@ -1,3 +1,5 @@
+![Vault Boy Fallout GIF](https://media.tenor.com/sqYOsA0GYTwAAAAM/vault-boy-fallout.gif)
+
 # wiValgrind Container setup
 
 A container designed to provide a flexible Linux environment for development. Simply execute the start.sh script in the working directory using the ```dev``` alias after installation. See the installation and usage guide below. 
@@ -41,7 +43,6 @@ option after attaching vscode to the container using the docker extension.
 14) irssi
 15) nodejs
 16) npm
-17) firebase
 
 Please feel free to add or suggest more
 ---
